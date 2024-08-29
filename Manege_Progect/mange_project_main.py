@@ -1,13 +1,12 @@
 from tool import clear_screen
-from project import Progect
-from data import Projects
+from project import Progect, Projetcs
 from time import sleep
 import time
 
 def Start_Progect():
     clear_screen()
     print("Bem Vindo ao Manage Project, um gestor de projetos!")
-    if not Projects:
+    if not Projetcs:
         print("1. Criar um Projeto")
         command = input("Digite sua opção: ")
 
@@ -31,7 +30,7 @@ def Create_Project():
         language=language, 
         start_time=time.strftime("%Y-%m-%d %H:%M:%S")
     )
-    Projects.append(new_project)
+    Projetcs.append(new_project)
 
     sleep(1)
 
@@ -42,7 +41,7 @@ def Create_Project():
 def Manage_Project_Work(index):
     clear_screen()
     try:
-        project = Projects[int(index)]
+        project = Projetcs[int(index)]
     except IndexError:
         print("Projeto não encontrado.")
         return
@@ -116,7 +115,7 @@ def Complete_Task(task_list):
 
 def Main_Project():
     clear_screen()
-    print(f"Projetos: {Projects}")
+    print(f"Projetos: {Projetcs}")
     print("1. Selecionar Projeto")
     print("2. Sair")
     command = input("Digite sua opção: ")

@@ -7,3 +7,5 @@ class Progect:
     strat_time : str
     task_list: list[dict]
     liguage: str 
+
+Projetcs = []
