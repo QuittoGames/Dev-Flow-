@@ -1,5 +1,5 @@
 from tool import clear_screen
-from project import Progect, Projetcs
+from Manege_Progect.projectclass import Progect, Projetcs
 from time import sleep
 import time
 
@@ -15,6 +15,19 @@ def Start_Progect():
     else:
         Main_Project()
 
+def Main_Project():
+    clear_screen()
+    print(f"Projetos: {Projetcs}")
+    print("1. Selecionar Projeto")
+    print("2. Sair")
+    command = input("Digite sua opção: ")
+
+    if command == "1":
+        index_project = input("Digite o índice do projeto: ")
+        Manage_Project_Work(index=index_project)
+    else:
+        return
+    
 def Create_Project():
     clear_screen()
     project_name = input("Digite o nome do projeto: ")
@@ -28,13 +41,14 @@ def Create_Project():
         name=project_name,
         description=description,
         language=language, 
-        start_time=time.strftime("%Y-%m-%d %H:%M:%S")
+        start_time= time.localtime()
     )
     Projetcs.append(new_project)
 
     sleep(1)
 
     print("Projeto criado com sucesso!")
+    sleep(1)
     Main_Project()
     return
 
@@ -113,15 +127,3 @@ def Complete_Task(task_list):
     
     Tarefas(task_list)
 
-def Main_Project():
-    clear_screen()
-    print(f"Projetos: {Projetcs}")
-    print("1. Selecionar Projeto")
-    print("2. Sair")
-    command = input("Digite sua opção: ")
-
-    if command == "1":
-        index_project = input("Digite o índice do projeto: ")
-        Manage_Project_Work(index=index_project)
-    else:
-        return
