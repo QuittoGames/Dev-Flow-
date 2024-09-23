@@ -10,6 +10,7 @@ import asyncio
 import platform
 from requests import get
 from Manege_Progect.mange_project_main import Start_Progect
+from Format_Boot_Pen_Drive.formart_script import formart
 
 # Variáveis Globais
 ano = datetime.datetime.now().year
@@ -33,6 +34,7 @@ def Start():
     print("5. Lhama 3 IA (Local)")
     print("6. Verificar Resposta De Servidor De Um Site")
     print("7. Mange Progect")
+    print("8. Formart Boot Pen Drive")
 
     command = input("Digite Sua Opção: ")
     if command == "1":
@@ -52,6 +54,10 @@ def Start():
         return
     elif command == "7":
         Start_Progect()
+        return
+    elif command == "8":
+        Formart_Boot_Disk()
+        return
     else:
         Start()
         return
@@ -101,6 +107,21 @@ def Run_IA():
         Config_IA()
     Start()
     return
+
+def Formart_Boot_Disk():
+    os.system("diskpart")
+    os.system("list disk")
+    nun_disk = input("Digite O Numero Do Seu Pen Drive Botavel: ")
+    if formart(nun_disk=nun_disk):
+        print("Pen Drive Botavel Formatado Com Susseso!")
+        sleep(2)
+        Start()
+        return
+    else:
+        print("Erro na Formataçao!")
+        sleep(2)
+        Start()
+        return
 
 def Retun_reponse():
     clear_screen()
