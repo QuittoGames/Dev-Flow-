@@ -124,10 +124,21 @@ def Formart_Boot_Disk():
 def Retun_reponse():
     clear_screen()
     url = input("Digite Sua URL: ").strip()
-    reponse = get(url)
+    try:
+        reponse = get(url)
+    except:
+        print(f"Erro ao tentar acessar a URL: {url}\n"
+          "Possíveis causas:\n"
+          "- A URL pode estar incorreta ou malformada.\n"
+          "- O site pode estar fora do ar ou com problemas de conexão.\n"
+          "- Verifique sua conexão com a internet.\n"
+          f"Detalhes técnicos do erro: {e}")
+        sleep(5)
+        Start()
+        return
 
     print(f"resposta do server: {reponse}")
-    sleep(1)
+    sleep(5)
     Start()
     return
 
