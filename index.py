@@ -109,8 +109,6 @@ def Run_IA():
     return
 
 def Formart_Boot_Disk():
-    os.system("diskpart")
-    os.system("list disk")
     nun_disk = input("Digite O Numero Do Seu Pen Drive Botavel: ")
     if formart(nun_disk=nun_disk):
         print("Pen Drive Botavel Formatado Com Susseso!")
