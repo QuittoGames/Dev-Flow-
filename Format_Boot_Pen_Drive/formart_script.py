@@ -1,4 +1,3 @@
-from tool import clear_screen
 import os
 import tempfile
 

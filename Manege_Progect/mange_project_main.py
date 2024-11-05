@@ -1,10 +1,10 @@
-from tool import clear_screen
+from tool import tool
 from Manege_Progect.projectclass import Progect, Projetcs
 from time import sleep
 import time
 
 def Start_Progect():
-    clear_screen()
+    tool.clear_screen()
     print("Bem Vindo ao Manage Project, um gestor de projetos!")
     if not Projetcs:
         print("1. Criar um Projeto")
@@ -16,7 +16,7 @@ def Start_Progect():
         Main_Project()
 
 def Main_Project():
-    clear_screen()
+    tool.clear_screen()
     print(f"Projetos: {Projetcs}")
     print("1. Selecionar Projeto")
     print("2. Sair")
@@ -29,7 +29,7 @@ def Main_Project():
         return
     
 def Create_Project():
-    clear_screen()
+    tool.clear_screen()
     project_name = input("Digite o nome do projeto: ")
     description = input("Digite a descrição do projeto (não obrigatório): ")
     language = input("Digite a linguagem de programação: (.py): ")
@@ -53,7 +53,7 @@ def Create_Project():
     return
 
 def Manage_Project_Work(index):
-    clear_screen()
+    tool.clear_screen()
     try:
         project = Projetcs[int(index)]
     except IndexError:
@@ -79,7 +79,7 @@ def Manage_Project_Work(index):
         return
 
 def Tarefas(task_list):
-    clear_screen()
+    tool.clear_screen()
     print(f"Tarefas: {task_list}")
     print("1. Adicionar Tarefa")
     print("2. Completar Tarefa")
@@ -93,7 +93,7 @@ def Tarefas(task_list):
         return
 
 def Add_Task(task_list):
-    clear_screen()
+    tool.clear_screen()
     task_name = input("Nome da Tarefa: ")
     description_task = input("Descrição da Tarefa: ")
     status_task = input("Status da tarefa (1 = Concluída, 0 = Ainda não concluída): ")
@@ -111,7 +111,7 @@ def Add_Task(task_list):
     return
 
 def Complete_Task(task_list):
-    clear_screen()
+    tool.clear_screen()
     task_name = input("Nome da Tarefa: ")
     task_found = False
 

@@ -1,7 +1,7 @@
-from tool import clear_screen, Organizador_De_Arquivo,Clear_Temp,is_admin
+from tool import tool
 import datetime
 from time import sleep
-from data import Diretory_Salved,IA_Byts
+from data import data
 from IA.IA import Ollaama_Run_IA,Config_IA
 import os
 import ctypes
@@ -9,24 +9,15 @@ import sys
 import asyncio
 import platform
 from requests import get
-from Manege_Progect.mange_project_main import Start_Progect
+#from Manege_Progect.mange_project_main import Start_Progect
 from Format_Boot_Pen_Drive.formart_script import formart
-
-# Variáveis Globais
-ano = datetime.datetime.now().year
-mes = datetime.datetime.now().month
-day = datetime.datetime.now().day
-
-OS_client = platform.system()
-
-DiretoryBool = False
 
 # Interface
 def Start():
-    clear_screen()
+    tool.clear_screen()
     print("Bem Vindo Al DevFlow! ")
-    print(f"{day}/{mes}/{ano}")
-    print(f"Sistema Operacional: {OS_client}")
+    print(f"{data.day}/{data.mes}/{data.ano}")
+    print(f"Sistema Operacional: {data.OS_client}")
     print("1. Verificar Arquivos Corrompidos (Windows)")
     print("2. Criar Pasta")
     print("3. Organizador De Arquivos")
@@ -38,68 +29,39 @@ def Start():
 
     command = input("Digite Sua Opção: ")
     if command == "1":
-        Windows_Verify()
+        tool.Windows_Verify()
+        return
     elif command == "2":
-        Create_Folder()
+        tool.Create_Folder()
+        Start()
+        return
     elif command == "3":
-        Organizador_De_Arquivo()
+        tool.Organizador_De_Arquivo()
+        Start()
+        return
     elif command == "4":
-        Clear_Temp()
+        tool.Clear_Temp()
         Start()
         return
     elif command == "5":
         Run_IA()
     elif command == "6":
-        Retun_reponse()
-        return
-    elif command == "7":
-        Start_Progect()
-        return
-    elif command == "8":
-        Formart_Boot_Disk()
-        return
-    else:
+        tool.Retun_reponse()
         Start()
         return
-
-def Create_Folder():
-    global DiretoryBool, Diretory_Salved
-    clear_screen()
-    name_Folder = input("Digite o Nome da Pasta: ")
-    auto_diretory = input("Você deseja utilizar o diretório salvo? (y/n): ")
-
-    if DiretoryBool and auto_diretory.lower() == "y":
-        Diretory = Diretory_Salved
+    #elif command == "7":
+        #Start_Progect()
+        #return
+    elif command == "8":
+        Formart_Boot_Disk()
+        Start()
+        return
     else:
-        Diretory = input("Digite seu Diretório: ").strip()
-        worder = input("Você deseja adicionar este repositório aos favoritos? (y/n): ")
-        if worder.lower() == "y":
-            Diretory_Salved = Diretory
-            DiretoryBool = True
-    
-    os.makedirs(os.path.join(Diretory, name_Folder), exist_ok=True)
-    Start()
-    return
-        
-def Windows_Verify():
-    clear_screen()
-    if OS_client == "Windows":
-        try:
-            os.system("SFC /scannow")
-            input("Pressione Enter para continuar...")
-            Start()
-            return
-        except MemoryError:
-            print("Erro de Memória")
-            Start()
-            return
-    else:
-        print("Sistema Operacional Nao Pode Execultar Esta Funaço ")
         Start()
         return
 
 def Run_IA():
-    clear_screen()
+    tool.clear_screen()
     strat_IA = input("Config IA: (y/n)")
     if strat_IA.lower() == "n":
         Ollaama_Run_IA()
@@ -121,29 +83,8 @@ def Formart_Boot_Disk():
         Start()
         return
 
-def Retun_reponse():
-    clear_screen()
-    url = input("Digite Sua URL: ").strip()
-    try:
-        reponse = get(url)
-    except:
-        print(f"Erro ao tentar acessar a URL: {url}\n"
-          "Possíveis causas:\n"
-          "- A URL pode estar incorreta ou malformada.\n"
-          "- O site pode estar fora do ar ou com problemas de conexão.\n"
-          "- Verifique sua conexão com a internet.\n"
-          f"Detalhes técnicos do erro: {e}")
-        sleep(5)
-        Start()
-        return
-
-    print(f"resposta do server: {reponse}")
-    sleep(5)
-    Start()
-    return
-
 if __name__ == "__main__":
-    if is_admin():
+    if tool.is_admin():
         Start()  # Executa a função principal se o script tiver privilégios administrativos
     else:
         print("Reiniciando como administrador...")
