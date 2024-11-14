@@ -1,6 +1,5 @@
 from tool import tool
 from Manege_Progect.projectclass import Progect, Projetcs
-from time import sleep
 import time
 
 def Start_Progect():
@@ -45,10 +44,10 @@ def Create_Project():
     )
     Projetcs.append(new_project)
 
-    sleep(1)
+    time.sleep(1)
 
     print("Projeto criado com sucesso!")
-    sleep(1)
+    time.sleep(1)
     Main_Project()
     return
 

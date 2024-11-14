@@ -4,12 +4,12 @@ from time import sleep
 from data import data
 from IA.IA import Ollaama_Run_IA,Config_IA
 import os
-import ctypes
+from ctypes import windll
 import sys
-import asyncio
+#import asyncio
 import platform
 from requests import get
-#from Manege_Progect.mange_project_main import Start_Progect
+from Manege_Progect.mange_project_main import Start_Progect
 from Format_Boot_Pen_Drive.formart_script import formart
 
 # Interface
@@ -26,6 +26,7 @@ def Start():
     print("6. Verificar Resposta De Servidor De Um Site")
     print("7. Mange Progect")
     print("8. Formart Boot Pen Drive")
+    print("9. Clone Repo Git Hub")
 
     command = input("Digite Sua Opção: ")
     if command == "1":
@@ -49,11 +50,16 @@ def Start():
         tool.Retun_reponse()
         Start()
         return
-    #elif command == "7":
-        #Start_Progect()
-        #return
+    elif command == "7":
+        Start_Progect()
+        return
     elif command == "8":
         Formart_Boot_Disk()
+        Start()
+        return
+    elif command == "9":
+        tool.clone_rep()
+        sleep(1)
         Start()
         return
     else:
@@ -71,6 +77,7 @@ def Run_IA():
     return
 
 def Formart_Boot_Disk():
+    tool.clear_screen()
     nun_disk = input("Digite O Numero Do Seu Pen Drive Botavel: ")
     if formart(nun_disk=nun_disk):
         print("Pen Drive Botavel Formatado Com Susseso!")
@@ -89,7 +96,7 @@ if __name__ == "__main__":
     else:
         print("Reiniciando como administrador...")
         try:
-            ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+            windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
         except Exception as e:
             print(f"Erro ao tentar reiniciar como administrador: {e}")
         sleep(1)  # Aguarda um momento para evitar loops rápidos

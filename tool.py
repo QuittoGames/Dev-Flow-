@@ -41,6 +41,15 @@ class tool:
                     arquivo_novo = os.path.join(pasta_path, arquivo)
                     os.rename(arquivo_antigo, arquivo_novo)
         return
+    
+    def install_git():
+        try:
+            if data.OS == "Windows":
+                os.system("winget git")
+            else:
+                os.system("sudo apt install git")
+        except Exception as E:
+            print(f"Erro Na Innstalaçao Do Git!, Erro: {E}")
 
 
     def Clear_Temp():
@@ -115,6 +124,16 @@ class tool:
         else:
             print("Sistema Operacional Nao Pode Execultar Esta Funaço ")
             return
+    
+
+    def clone_rep():
+        tool.install_git()
+        URL_rep = input("Digite A URL Do Repositorio: ").strip()
+        try:
+            os.system(f"git clone {URL_rep}")
+        except Exception as E:
+            return
+
 
 
     def is_admin():
