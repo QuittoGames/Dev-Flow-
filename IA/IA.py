@@ -1,13 +1,16 @@
 import os
 from tool import tool
 from data import data
+from time import sleep
 
 def Ollaama_Run_IA():
     tool.clear_screen()
     try:
         os.system(f"ollama run llama3.1:{data.IA_Byts}")
-    except:
+    except Exception as E:
         print("Nao Foi possuivel Execultar O llama3 , tente intalar o ollama para execuçao do programa")
+        print(f"Erro: {E}")
+        sleep(2)
         return False
     
 def Config_IA():

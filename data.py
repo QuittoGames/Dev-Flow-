@@ -12,7 +12,7 @@ class data:
                 "Texto":[".txt",".docx"]
         }
 
-        Diretory_Salved = ""
+        Diretory_Saled = ""
 
         IA_Byts = "70b".lower()
 
@@ -27,4 +27,10 @@ class data:
 
         OS_client = platform.system()
 
+        modules = ["PyQt6","requests","winotify"]
+
+        file_note = r"/data_note/note.txt"
+
         DiretoryBool = False
+
+        Tasks_to_do = []

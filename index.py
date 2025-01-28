@@ -27,6 +27,7 @@ def Start():
     print("7. Mange Progect")
     print("8. Formart Boot Pen Drive")
     print("9. Clone Repo Git Hub")
+    print("10. Verify Modules")
 
     command = input("Digite Sua Opção: ")
     if command == "1":
@@ -62,11 +63,30 @@ def Start():
         sleep(1)
         Start()
         return
+    elif command == "10":
+        tool.verify_modules()
+        sleep(1)
+        Start()
+        return
+    elif command == "11":
+        tool.write_in_notes()
+        sleep(1)
+        Start()
+        return
+    elif command == "12":
+        start_to_do()
+        sleep(1)
+        Start()
+        return
     else:
         Start()
         return
 
 def Run_IA():
+    tool.clear_screen()
+    if not tool.install_ollama():
+        Start()
+        return
     tool.clear_screen()
     strat_IA = input("Config IA: (y/n)")
     if strat_IA.lower() == "n":
@@ -89,14 +109,19 @@ def Formart_Boot_Disk():
         sleep(2)
         Start()
         return
+    
+def start_to_do():
+    os.system("python3 ToDo\to_do_main.py")
+    return
 
 if __name__ == "__main__":
     if tool.is_admin():
+        tool.verify_modules()
         Start()  # Executa a função principal se o script tiver privilégios administrativos
     else:
         print("Reiniciando como administrador...")
         try:
-            windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+            windll.shell32.ShellExecuteW(None, "runas", sys.executable, f'"{__file__}"', None, 1)
         except Exception as e:
             print(f"Erro ao tentar reiniciar como administrador: {e}")
         sleep(1)  # Aguarda um momento para evitar loops rápidos

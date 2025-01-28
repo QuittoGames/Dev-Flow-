@@ -10,7 +10,8 @@ from dataclasses import dataclass
 from requests import get
 #from Manege_Progect.mange_project_main import Start_Progect
 from Format_Boot_Pen_Drive.formart_script import formart
-
+import threading
+import winotify
 
 @dataclass
 class tool:
@@ -44,18 +45,35 @@ class tool:
     
     def install_git():
         try:
-            if data.OS == "Windows":
-                os.system("winget git")
+            if data.OS_client == "Windows":
+                os.system("winget install git")
             else:
                 os.system("sudo apt install git")
         except Exception as E:
             print(f"Erro Na Innstalaçao Do Git!, Erro: {E}")
 
+        
+    def install_ollama():
+        try:
+            if data.OS_client == "Windows":
+                print("Para Execuçao Da Feture IA Local E Ultilizado ferramentas de terceros neste caso sendo a ferramenta 'ollama' mais informaçoes no site 'https://ollama.com/'")
+                print("Caso Ja Possua A Ferramete Apenas Presisone Qualquer Tecla")
+                license_run = input("Deseja Continuar: (y/n)")
+                if license_run.lower().strip() == "y":return
+                os.system("winget install ollama")
+            else:
+                print("Para Execuçao Da Feture IA Local E Ultilizado ferramentas de terceros neste caso sendo a ferramenta 'ollama' mais informaçoes no site 'https://ollama.com/'")
+                print("Caso Ja Possua A Ferramete Apenas Presisone Qualquer Tecla")
+                license_run = input("Deseja Continuar: (y/n)")
+                if license_run.lower().strip() == "y":return
+                os.system("sudo apt install ollama")
+        except Exception as E:
+            print(f"Erro Na Innstalaçao Do ollama!, Erro: {E}")
 
     def Clear_Temp():
         tool.clear_screen()
         try:
-            temp_Diretory = r"C:\Users\sidne\AppData\Local\Temp".strip()
+            temp_Diretory = r"C:\Users\USER\AppData\Local\Temp".strip()
             del temp_Diretory
             print("A Tempo Foi Limpa Com Susseso! ")
             sleep(1.5)
@@ -133,9 +151,57 @@ class tool:
             os.system(f"git clone {URL_rep}")
         except Exception as E:
             return
+    
+    def verify_modules():
+        for i in data.modules:
+            os.system(f"pip3 install {i}")
+            sleep(0.1)
+        return
 
+    def write_in_notes():
+        tool.clear_screen()
+        try:
+            if not os.path.exists("/data_note/note.txt"):
+                os.system("cd data_note touch note.txt")
+            print(f"Note: {open(data.file_note, "a")}")
+            txt = input("Digite Seu Texto: ")
+            with open(data.file_note, "a") as file:
+                file.write(txt + "\n")
+            return
+        except Exception as e:
+            print(f"Erro ao escrever no arquivo: {e}")
 
+    def start_tread(fuction,parameter):
+        if not isinstance(parameter, tuple):
+            parameter = (parameter,) 
+        tread = threading.Thread(target=fuction,args=parameter)
+        tread.daemon = True
+        tread.start()
+        return tread
+    
+    def Notification(task: object):
+        try:
+            if not os.path.exists(r"C:\Users\Admin\Downloads\Projects\Dev-Flow-\icon\coffee.png"):
+                print(f"Ícone encontrado: {os.path.exists(r'./icon/coffee.png')}")
+                return None
 
+            notification = winotify.Notification(
+                app_id="Dev Flow",
+                title=task.name_task,
+                msg=task.descri_task,
+                icon=r"C:\Users\Admin\Downloads\Projects\Dev-Flow-\icon\coffee.png"
+            )
+            notification.set_audio(winotify.audio.Default, loop=False)
+            notification.add_actions(
+                label="Abrir Dev Flow",
+                launch=r"C:\Users\Public\Downloads\Projects\Dev-Flow-\index.py"
+            )
+            notification.show()
+        except Exception as e:
+            print(f"Erro ao exibir a notificação: {e}")
+            return None
+
+    
     def is_admin():
         try:
             return ctypes.windll.shell32.IsUserAnAdmin()
